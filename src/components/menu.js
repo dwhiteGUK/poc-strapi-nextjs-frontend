@@ -1,12 +1,14 @@
 import Link from 'next/link'
 import { Transition } from '@headlessui/react'
 
+const HOSTNAME = process.env.HOSTNAME
+
 function MenuDesktop({ menuOpen, setMenuOpen }) {
   return (
     <nav className="relative max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6" aria-label="Global">
       <div className="flex items-center flex-1">
         <div className="flex items-center justify-between w-full md:w-auto">
-          <Link href="/">
+          <Link href="index">
             <>
               <span className="sr-only">Workflow</span>
               <img className="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-teal-200-cyan-400.svg" alt="" />
@@ -28,7 +30,7 @@ function MenuDesktop({ menuOpen, setMenuOpen }) {
           </div>
         </div>
         <div className="hidden space-x-8 md:flex md:ml-10">
-          <Link href="/">
+          <Link href="index">
             <a className="text-base font-medium text-white hover:text-gray-300">Home</a>
           </Link>
 
@@ -87,7 +89,7 @@ function MenuMobile({ menuOpen, setMenuOpen }) {
         </div>
         <div className="pt-5 pb-6" role="menu" aria-orientation="vertical" aria-labelledby="main-menu">
           <div className="px-2 space-y-1" role="none">
-            <Link href="/">
+            <Link href="index">
               <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50" role="menuitem">Home</a>
             </Link>
 
@@ -95,7 +97,7 @@ function MenuMobile({ menuOpen, setMenuOpen }) {
 
             <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50" role="menuitem">Marketplace</a>
 
-            <Link href="/news">
+            <Link href={`${HOSTNAME}/news`}>
               <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50" role="menuitem">News</a>
             </Link>
           </div>
