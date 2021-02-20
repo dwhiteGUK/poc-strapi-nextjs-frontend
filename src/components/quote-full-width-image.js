@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { AppContext } from '~/context/app-context'
 export default function QuoteFullWidthImage({ data }) {
   const { API_URL } = useContext(AppContext)
+  console.log('🚀 ~ file: quote-full-width-image.js ~ line 7 ~ QuoteFullWidthImage ~ API_URL', API_URL)
+
   return (
     <div className="pb-16 bg-gradient-to-r from-teal-500 to-cyan-600 lg:pb-0 lg:z-10 lg:relative">
       <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-8">

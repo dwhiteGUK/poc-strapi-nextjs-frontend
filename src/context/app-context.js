@@ -9,7 +9,7 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{
-      API_URL: process.env.NODE_ENV === 'production' ? process.env.API_URL : 'http://localhost:1337'
+      API_URL: process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_API_URL : 'http://localhost:1337'
     }}>
       {children}
     </AppContext.Provider>
