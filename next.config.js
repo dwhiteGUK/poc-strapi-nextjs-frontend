@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports = {
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'strapi-j7s5.onrender.com'],
   },
   webpack: (config, { dev, isServer }) => {
     // extend your webpack configuration here
