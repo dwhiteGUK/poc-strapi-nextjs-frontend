@@ -50,6 +50,7 @@ export default function News({ data }) {
 }
 
 export async function getStaticProps(context) {
+  console.log('🚀 ~ file: index.js ~ line 53 ~ getStaticProps ~ context', context)
   const data = await getPageContent('home')
 
   return {

@@ -1,5 +1,9 @@
+import { useContext } from 'react'
 import Image from 'next/image'
+
+import { AppContext } from '~/context/app-context'
 export default function QuoteFullWidthImage({ data }) {
+  const { API_URL } = useContext(AppContext)
   return (
     <div className="pb-16 bg-gradient-to-r from-teal-500 to-cyan-600 lg:pb-0 lg:z-10 lg:relative">
       <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-8">
@@ -7,7 +11,7 @@ export default function QuoteFullWidthImage({ data }) {
           <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1/2 bg-white lg:hidden"></div>
           <div className="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:p-0 lg:h-full">
             <div className="aspect-w-10 aspect-h-6  overflow-hidden sm:aspect-w-16 sm:aspect-h-7 lg:aspect-none lg:h-full">
-              <Image className="object-cover lg:h-full lg:w-full rounded-xl shadow-xl" src={`http://localhost:1337${data.Image.url}`} layout="fill" alt="" />
+              <Image className="object-cover lg:h-full lg:w-full rounded-xl shadow-xl" src={`${API_URL}${data.Image.url}`} layout="fill" alt="" />
             </div>
           </div>
         </div>

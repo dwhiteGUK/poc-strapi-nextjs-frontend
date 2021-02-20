@@ -1,5 +1,7 @@
+import { useContext } from 'react'
 import Image from 'next/image'
 
+import { AppContext } from '~/context/app-context'
 import * as Icons from '~/components/icons'
 
 function getIcon(icon, classes) {
@@ -11,10 +13,11 @@ function getIcon(icon, classes) {
   }
 }
 export default function CtaHalfImage({ data }) {
+  const { API_URL } = useContext(AppContext)
   return (
     <div className="relative bg-gray-900">
       <div className="relative h-56 bg-indigo-600 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
-        <Image className="w-full h-full object-cover" src={`http://localhost:1337${data.Cover.url}`} layout="fill" alt="" />
+        <Image className="w-full h-full object-cover" src={`${API_URL}${data.Cover.url}`} layout="fill" alt="" />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-600" style={{ mixBlendMode: 'multiply' }}></div>
       </div>
       <div className="relative mx-auto max-w-md px-4 py-12 sm:max-w-7xl sm:px-6 sm:py-20 md:py-28 lg:px-8 lg:py-32">
