@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 export default function NewsCard({ item }) {
 
   return (
@@ -9,29 +10,35 @@ export default function NewsCard({ item }) {
       <div className="flex-1 bg-white p-6 flex flex-col justify-between">
         <div className="flex-1">
           <p className="text-sm font-medium text-cyan-600">
-            <a href={`/news/${item.id}`} className="hover:underline">
-              {item.news_category.Category}
-            </a>
+            <Link href={`/news/${item.id}`}>
+              <a className="hover:underline">
+                {item.news_category.Category}
+              </a>
+            </Link>
           </p>
-          <a href={`/news/${item.id}`} className="block mt-2">
-            <p className="text-xl font-semibold text-gray-900">
-              {item.Heading}
-            </p>
-            <p className="mt-3 text-base text-gray-500">
-              {item.Summary}
-            </p>
-          </a>
+          <Link href={`/news/${item.id}`}>
+            <a className="block mt-2">
+              <p className="text-xl font-semibold text-gray-900">
+                {item.Heading}
+              </p>
+              <p className="mt-3 text-base text-gray-500">
+                {item.Summary}
+              </p>
+            </a>
+          </Link>
         </div>
         <div className="mt-6 flex items-center">
           <div className="flex-shrink-0">
-            <a href={`/news/${item.id}`}>
-              <span className="sr-only">Roel Aufderehar</span>
-              <img className="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=UsVmjgUMfb&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-            </a>
+            <Link href={`/news/${item.id}`}>
+              <a>
+                <span className="sr-only">Roel Aufderehar</span>
+                <img className="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=UsVmjgUMfb&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+              </a>
+            </Link>
           </div>
           <div className="ml-3">
             <p className="text-sm font-medium text-gray-900">
-              <a href={`/news/${item.id}`} className="hover:underline">Roel Aufderehar</a>
+              <a className="hover:underline">Roel Aufderehar</a>
             </p>
             <div className="flex space-x-1 text-sm text-gray-500">
               <time dateTime="2020-03-16">Mar 16, 2020</time>
