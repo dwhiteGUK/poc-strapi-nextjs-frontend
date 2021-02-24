@@ -6,11 +6,10 @@ import Header from '~/components/header'
 import { getNews, getNewsItem } from '~/lib/news'
 
 export default function NewsItem({ item }) {
-  const mdxSource = hydrate(item.mdxSource);
+  const mdxSource = hydrate(item?.mdxSource || '');
 
   async function exitPreviewMode() {
     const res = await fetch('/api/exit-preview').catch(err => console.error(err))
-    debugger
 
     if (res) {
       window.close()
@@ -57,7 +56,7 @@ export default function NewsItem({ item }) {
                     </defs>
                     <rect width="404" height="384" fill="url(#de316486-4a29-4312-bdfc-fbce2132a2c1)" />
                   </svg>
-                  {item.Cover &&
+                  {item?.Cover &&
                     (<div className="relative text-base mx-auto max-w-prose lg:max-w-none">
                       <figure>
                         <div className="aspect-w-12 aspect-h-7 lg:aspect-none">
@@ -74,7 +73,7 @@ export default function NewsItem({ item }) {
                 </div>
                 <div className="mt-8 lg:mt-0">
                   <div className="text-base max-w-prose mx-auto lg:max-w-none">
-                    <p className="text-lg text-gray-500">{item.Summary}</p>
+                    <p className="text-lg text-gray-500">{item?.Summary}</p>
                   </div>
                   <div className="mt-5 prose prose-indigo text-gray-500 mx-auto lg:max-w-none lg:row-start-1 lg:col-start-1">
                     {item?.Body && mdxSource}
@@ -91,7 +90,8 @@ export default function NewsItem({ item }) {
 
 export async function getStaticProps({ params, preview }) {
   const item = await getNewsItem(params.id, preview)
-  const mdxSource = await renderToString(item.Body)
+  console.log('🚀 ~ file: [id].js ~ line 96 ~ getStaticProps ~ item?.Body', item?.Body)
+  const mdxSource = await renderToString(item?.Body || '')
 
   return {
     props: {
