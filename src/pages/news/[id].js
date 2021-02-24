@@ -107,6 +107,6 @@ export async function getStaticPaths() {
 
   return {
     paths: news?.map((item) => `/news/${item.id}`),
-    fallback: false
+    fallback: true
   }
 }
