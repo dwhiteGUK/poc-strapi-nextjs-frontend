@@ -4,7 +4,6 @@ import hydrate from 'next-mdx-remote/hydrate'
 
 import Header from '~/components/header'
 import { getNews, getNewsItem } from '~/lib/news'
-import { logger } from '~/lib/logger'
 
 export default function NewsItem({ item }) {
   const mdxSource = hydrate(item?.mdxSource || '');
@@ -91,8 +90,6 @@ export default function NewsItem({ item }) {
 }
 
 export async function getStaticProps({ params, preview }) {
-
-  const log = await logger({ params, preview })
 
   const item = await getNewsItem(params.id, preview)
   const mdxSource = await renderToString(item?.Body || '')
