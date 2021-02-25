@@ -13,7 +13,7 @@ export default function NewsItem({ item }) {
     debugger
 
     if (res) {
-      //window.close()
+      window.close()
     }
   }
 
