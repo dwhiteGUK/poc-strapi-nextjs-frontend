@@ -10,9 +10,10 @@ export default function NewsItem({ item }) {
 
   async function exitPreviewMode() {
     const res = await fetch('/api/exit-preview').catch(err => console.error(err))
+    debugger
 
     if (res) {
-      window.close()
+      //window.close()
     }
   }
 
@@ -107,6 +108,6 @@ export async function getStaticPaths() {
 
   return {
     paths: news?.map((item) => `/news/${item.id}`),
-    fallback: true
+    fallback: false
   }
 }
