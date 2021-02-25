@@ -94,6 +94,14 @@ export async function getStaticProps({ params, preview }) {
   const item = await getNewsItem(params.id, preview)
   const mdxSource = await renderToString(item?.Body || '')
 
+  if (!item && !preview) {
+    return {
+      props: {
+        item: ''
+      }
+    }
+  }
+
   return {
     props: {
       item: {
