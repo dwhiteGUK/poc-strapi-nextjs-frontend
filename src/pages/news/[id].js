@@ -90,6 +90,7 @@ export default function NewsItem({ item }) {
 }
 
 export async function getStaticProps({ params, preview }) {
+  console.log('🚀 ~ file: [id].js ~ line 93 ~ getStaticProps ~ params, preview', params, preview)
   const item = await getNewsItem(params.id, preview)
   const mdxSource = await renderToString(item?.Body || '')
 
