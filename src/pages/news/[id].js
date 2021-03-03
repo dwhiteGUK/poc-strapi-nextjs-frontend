@@ -89,8 +89,10 @@ export default function NewsItem({ item }) {
   )
 }
 
-export async function getStaticProps({ params, preview }) {
+export async function getStaticProps(context) {
+  console.log('🚀 ~ file: [id].js ~ line 93 ~ getStaticProps ~ context', context);
 
+  const { params, preview } = context;
   const item = await getNewsItem(params.id, preview)
   const mdxSource = await renderToString(item?.Body || '')
 
@@ -117,6 +119,6 @@ export async function getStaticPaths() {
 
   return {
     paths: news?.map((item) => `/news/${item.id}`),
-    fallback: false
+    fallback: true
   }
 }

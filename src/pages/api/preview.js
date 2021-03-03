@@ -8,8 +8,6 @@ export default async (req, res) => {
     return res.status(401).json({ message: 'Invalid token' })
   }
 
-  console.log('🚀 ~ file: preview.js ~ line 6 ~ req.query.secret !== process.env.STRAPI_PREVIEW_SECRET', req.query.secret, process.env.STRAPI_PREVIEW_SECRET)
-
   // Enable Preview Mode by setting the cookies
   res.setPreviewData({})
 
