@@ -1,5 +1,6 @@
 const path = require('path');
 module.exports = {
+  target: 'serverless',
   images: {
     domains: ['localhost', 'strapi-j7s5.onrender.com'],
   },
