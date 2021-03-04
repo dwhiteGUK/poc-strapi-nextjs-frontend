@@ -98,9 +98,7 @@ export async function getStaticProps(context) {
     return { notFound: true }
   }
 
-  console.log('🚀 ~ file: [id].js ~ line 96 ~ getStaticProps ~ item', item)
-
-  const mdxSource = await renderToString(item?.Body ? item.Body : 'Test')
+  const mdxSource = await renderToString(item?.Body ?? '')
 
   return {
     props: {
