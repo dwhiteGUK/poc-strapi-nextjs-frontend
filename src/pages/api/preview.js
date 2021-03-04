@@ -1,3 +1,5 @@
+import { getNewsItem } from '~/lib/news'
+
 export default async (req, res) => {
   // Check the secret and next parameters
   // This secret should only be known to this API route and the CMS
@@ -6,6 +8,15 @@ export default async (req, res) => {
     !req.query.id
   ) {
     return res.status(401).json({ message: 'Invalid token' })
+  }
+
+  // check that article exists
+  const item = await getNewsItem(req.query.id, true)
+  console.log('🚀 ~ file: preview.js ~ line 12 ~ item', item)
+
+  // If the article doesn't exist prevent preview mode from being enabled
+  if (!item) {
+    return res.status(404).json({ message: 'Page not found' })
   }
 
   // Enable Preview Mode by setting the cookies

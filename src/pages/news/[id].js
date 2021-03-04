@@ -5,12 +5,11 @@ import hydrate from 'next-mdx-remote/hydrate'
 import Header from '~/components/header'
 import { getNews, getNewsItem } from '~/lib/news'
 
-export default function NewsItem({ item }) {
-  const mdxSource = hydrate(item?.mdxSource || '');
+export default function NewsItem({ item, preview }) {
+  const mdxSource = (item && item?.Body && hydrate(item?.mdxSource || '')) ?? ''
 
   async function exitPreviewMode() {
     const res = await fetch('/api/exit-preview').catch(err => console.error(err))
-    debugger
 
     if (res) {
       window.close()
@@ -24,21 +23,22 @@ export default function NewsItem({ item }) {
         <main>
           <div className="bg-white overflow-hidden">
 
-
-            <div className="relative bg-indigo-600">
-              <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
-                <div className="pr-16 sm:text-center sm:px-16">
-                  <p className="font-medium text-white">
-                    <span>
-                      Preview mode is on,
-                    </span>
-                    <span className="block sm:ml-2 sm:inline-block">
-                      <button className="text-white font-bold underline" onClick={() => exitPreviewMode()}> turn off</button>
-                    </span>
-                  </p>
+            {preview ? (
+              <div className="relative bg-indigo-600">
+                <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+                  <div className="pr-16 sm:text-center sm:px-16">
+                    <p className="font-medium text-white">
+                      <span>
+                        Preview mode is on,
+                      </span>
+                      <span className="block sm:ml-2 sm:inline-block">
+                        <button className="text-white font-bold underline" onClick={() => exitPreviewMode()}> turn off</button>
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : null}
 
 
             <div className="relative max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
@@ -90,32 +90,35 @@ export default function NewsItem({ item }) {
 }
 
 export async function getStaticProps(context) {
-  console.log('🚀 ~ file: [id].js ~ line 93 ~ getStaticProps ~ context', context);
 
-  const { params, preview } = context;
+  const { params, preview } = context
   const item = await getNewsItem(params.id, preview)
-  const mdxSource = await renderToString(item?.Body || '')
 
-  if (!item && !preview) {
-    return {
-      props: {
-        item: ''
-      }
-    }
+  if (!item) {
+    return { notFound: true }
   }
+
+  console.log('🚀 ~ file: [id].js ~ line 96 ~ getStaticProps ~ item', item)
+
+  const mdxSource = await renderToString(item?.Body ? item.Body : 'Test')
 
   return {
     props: {
       item: {
         ...item,
         mdxSource
-      }
+      },
+      preview: preview ? true : null
     }
   }
 }
 
 export async function getStaticPaths() {
   const news = await getNews()
+    .catch(err => {
+      console.error(err);
+      return { notFound: true }
+    })
 
   return {
     paths: news?.map((item) => `/news/${item.id}`),
