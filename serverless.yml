@@ -1,0 +1,8 @@
+pocStrapiNextjsFrontend:
+  component: "@sls-next/serverless-component@1.18.0"
+  stage: prod
+  inputs:
+    memory:
+      defaultLambda: 1024
+      apiLambda: 2048
+      imageLambda: 2048

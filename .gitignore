@@ -35,3 +35,8 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
+
+
+# serverless
+.serverless
+.serverless_nextjs
