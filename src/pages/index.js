@@ -8,6 +8,7 @@ import HeroRightImage from '~/components/hero-right-image'
 import HeroFullWidthImage from '~/components/hero-full-width-image'
 import QuoteFullWidthImage from '~/components/quote-full-width-image'
 import NewsGrid from '~/components/news-grid'
+import SectionIntro from '~/components/section-intro'
 import Footer from '~/components/footer'
 
 import { getPageContent } from '~/lib/page-content'
@@ -26,6 +27,10 @@ function getContentComponent(item) {
       return <CtaHalfImage data={item} />
     case 'content.news-grid':
       return <NewsGrid data={item} />
+    case 'content.news-realation':
+      return <NewsGrid data={item} />
+    case 'content.section-intro':
+      return <SectionIntro data={item} />
     default:
       return <p>{`Component not found ${item.__component}`}</p>
   }

@@ -8,7 +8,7 @@ function MenuDesktop({ menuOpen, setMenuOpen }) {
     <nav className="relative max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6" aria-label="Global">
       <div className="flex items-center flex-1">
         <div className="flex items-center justify-between w-full md:w-auto">
-          <Link href="index">
+          <Link href="./">
             <>
               <span className="sr-only">Workflow</span>
               <img className="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-teal-200-cyan-400.svg" alt="" />
@@ -34,10 +34,9 @@ function MenuDesktop({ menuOpen, setMenuOpen }) {
             <a className="text-base font-medium text-white hover:text-gray-300">Home</a>
           </Link>
 
-          <a href="#" className="text-base font-medium text-white hover:text-gray-300">Features</a>
-
-          <a href="#" className="text-base font-medium text-white hover:text-gray-300">Marketplace</a>
-
+          <Link href="/casinos">
+            <a href="#" className="text-base font-medium text-white hover:text-gray-300">Casinos</a>
+          </Link>
           <Link href="/news">
             <a className="text-base font-medium text-white hover:text-gray-300">
               News
@@ -93,9 +92,9 @@ function MenuMobile({ menuOpen, setMenuOpen }) {
               <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50" role="menuitem">Home</a>
             </Link>
 
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50" role="menuitem">Features</a>
-
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50" role="menuitem">Marketplace</a>
+            <Link href="/casinos">
+              <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50" role="menuitem">Casinos</a>
+            </Link>
 
             <Link href={`${HOSTNAME}/news`}>
               <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50" role="menuitem">News</a>
