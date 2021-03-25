@@ -2,36 +2,21 @@ import Image from 'next/image'
 import renderToString from 'next-mdx-remote/render-to-string'
 import hydrate from 'next-mdx-remote/hydrate'
 
-import CtaHalfImage from '~/components/cta-half-image'
-import FeatureGrid from '~/components/feature-grid'
 import Header from '~/components/header'
-import HeroRightImage from '~/components/hero-right-image'
-import HeroFullWidthImage from '~/components/hero-full-width-image'
-import QuoteFullWidthImage from '~/components/quote-full-width-image'
 import NewsGrid from '~/components/news-grid'
-import SectionIntro from '~/components/section-intro'
+import Gallery from '~/components/gallery'
 import Footer from '~/components/footer'
 
 import { getCasinos, getCasinosItem } from '~/lib/casinos'
 
 function getContentComponent(item) {
   switch (item.__component) {
-    case 'content.hero-with-right-image':
-      return <HeroRightImage data={item} />
-    case 'content.hero-full-width-image':
-      return <HeroFullWidthImage data={item} />
-    case 'content.quote':
-      return <QuoteFullWidthImage data={item} />
-    case 'content.feature-grid':
-      return <FeatureGrid data={item} />
-    case 'content.cta-half-image':
-      return <CtaHalfImage data={item} />
     case 'content.news-grid':
       return <NewsGrid data={item} />
     case 'content.news-realation':
       return <NewsGrid data={item} />
-    case 'content.section-intro':
-      return <SectionIntro data={item} />
+    case 'content.gallery':
+      return <Gallery data={item} />
     default:
       return <p>{`Component not found ${item.__component}`}</p>
   }
@@ -85,8 +70,8 @@ export default function CasinosItem({ item, preview }) {
                   <div aria-hidden="true" className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-gray-900 xl:inset-y-0 xl:left-0 xl:h-full xl:w-32 xl:bg-gradient-to-r"></div>
                 </div>
               )}
-              <div className="max-w-4xl mx-auto p-8 lg:max-w-7xl lg:px-8 xl:grid xl:grid-cols-2 xl:grid-flow-col-dense xl:gap-x-8">
-                <div className="relative w-1/2 px-8 py-4 xl:col-start-1 xl:pb-24 text-grey-600 bg-white bg-opacity-75">
+              <div className="max-w-4xl mx-auto p-8 lg:max-w-7xl grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="relative px-8 py-4 xl:col-start-1 xl:pb-24 text-grey-600 bg-white bg-opacity-75">
                   <h1 className="mt-3 text-3xl font-thin">{item?.name}</h1>
                   <div className="space-y-4 mt-4 pb-4 border-gray-400 border-b">
                     <div className="flex items-center ">
