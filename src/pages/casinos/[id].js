@@ -3,8 +3,10 @@ import renderToString from 'next-mdx-remote/render-to-string'
 import hydrate from 'next-mdx-remote/hydrate'
 
 import Header from '~/components/header'
+import CasinoNav from '~/components/casino-nav'
 import NewsGrid from '~/components/news-grid'
 import Gallery from '~/components/gallery'
+import WhatsOn from '~/components/whats-on'
 import Footer from '~/components/footer'
 
 import { getCasinos, getCasinosItem } from '~/lib/casinos'
@@ -17,6 +19,8 @@ function getContentComponent(item) {
       return <NewsGrid data={item} />
     case 'content.gallery':
       return <Gallery data={item} />
+    case 'content.whats-on':
+      return <WhatsOn data={item} />
     default:
       return <p>{`Component not found ${item.__component}`}</p>
   }
@@ -134,12 +138,15 @@ export default function CasinosItem({ item, preview }) {
             </div>
 
             {item?.content && (
-              <div>
-                {item?.content.map(item => {
-                  const component = getContentComponent(item);
-                  return component
-                })}
-              </div>
+              <>
+                <CasinoNav content={item.content} />
+                <div>
+                  {item?.content.map(item => {
+                    const component = getContentComponent(item);
+                    return component
+                  })}
+                </div>
+              </>
             )}
           </div>
         </main>

@@ -1,10 +1,10 @@
 
 import Image from 'next/image'
 
-export default function gallery({ data }) {
+export default function Gallery({ data }) {
   console.log('🚀 ~ file: gallery.js ~ line 3 ~ gallery ~ data', data)
   return (
-    <div className="bg-gray-800 py-4 sm:py-8 lg:py-16 text-white">
+    <div className="bg-gray-800 pt-4 sm:pt-8 text-white">
       <div className="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
         <h3 id={data.__component} className="mt-3 text-3xl font-thin">Take a look inside</h3>
 

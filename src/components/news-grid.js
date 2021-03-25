@@ -6,7 +6,7 @@ export default function News({ data }) {
       <div className="relative">
         {data.Intro && (
           <div className="text-center mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
-            <h2 className="text-base font-semibold tracking-wider text-cyan-600 uppercase">{data.Intro.Sub_heading}</h2>
+            <h3 id={data.__component} className="mt-3 text-3xl font-thin">{data.Intro.Sub_heading}</h3>
             <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
               {data.Intro.Heading}
             </p>
