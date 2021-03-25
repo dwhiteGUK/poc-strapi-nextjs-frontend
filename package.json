@@ -24,6 +24,7 @@
     "@netlify/plugin-nextjs": "^2.0.1",
     "autoprefixer": "^10.2.4",
     "postcss": "^8.2.6",
-    "tailwindcss": "^2.0.3"
+    "tailwindcss": "^2.0.3",
+    "@tailwindcss/jit": "^0.1.8"
   }
 }
