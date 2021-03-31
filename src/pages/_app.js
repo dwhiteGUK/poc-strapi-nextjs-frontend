@@ -1,4 +1,5 @@
 import { QueryClientProvider, QueryClient } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import '../styles/globals.css'
 
@@ -8,6 +9,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Component {...pageProps} />
+      <ReactQueryDevtools />
     </QueryClientProvider>
   )
 }

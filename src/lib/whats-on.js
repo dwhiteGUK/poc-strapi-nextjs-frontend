@@ -1,6 +1,18 @@
-const getWhatsOn = async () => {
+function buildQueryParams(region, casino) {
+  let queryStr = ''
+
+  console.log('🚀 ~ file: whats-on.js ~ line 2 ~ buildQueryParams ~ region', region)
+  if (region) queryStr += `regions.id=${region}&`
+  if (casino) queryStr += `casinos.id=${casino}&`
+
+  return queryStr;
+}
+
+const getWhatsOn = async (region, casino) => {
+  const queryParams = buildQueryParams(region, casino)
+
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/whats-ons`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/whats-ons${queryParams ? `?${queryParams}` : ''}`)
     const data = await res.json()
 
     return data
