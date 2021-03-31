@@ -37,6 +37,10 @@ function MenuDesktop({ menuOpen, setMenuOpen }) {
           <Link href="/casinos">
             <a href="#" className="text-base font-medium text-white hover:text-gray-300">Casinos</a>
           </Link>
+          <Link href="/whats-on">
+            <a href="#" className="text-base font-medium text-white hover:text-gray-300">Whats On</a>
+          </Link>
+
           <Link href="/news">
             <a className="text-base font-medium text-white hover:text-gray-300">
               News
