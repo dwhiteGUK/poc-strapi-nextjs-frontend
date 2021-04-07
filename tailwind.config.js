@@ -8,6 +8,9 @@ module.exports = {
       colors: {
         teal: colors.teal,
         cyan: colors.cyan,
+      },
+      minHeight: {
+        72: '18rem'
       }
     }
   },
