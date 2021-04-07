@@ -30,7 +30,7 @@ function PromotionCard(item) {
     >
       <div className="absolute inset-0 z-10 bg-black bg-opacity-25"></div>
       <h4 className="relative text-2xl font-th z-20 text-center">{item.heading}</h4>
-      <p className="relative text-bs text-white z-20 text-center">{item.strapline}</p>
+      <p className="relative text-bs text-white z-20 text-center">{item?.category_fields[0]?.strapline}</p>
       <div className="absolute inset-0 h-96 overflow-hidden ">
         <img
           className="object-cover object-center absolute inset-0 z-1"
@@ -67,13 +67,13 @@ function TournamentCard(item) {
           </div>
         ) : null}
         <div className="flex-1">
-          <p className="font-thin">{item.whats_on_category.heading}</p>
+          <p className="font-thin">{item.category.category}</p>
           <h3 className="text-xl font-semibold">
             {item.heading}
           </h3>
 
           {item.casinos ? (
-            <p className="text-gray-100 text-xs mt-6">
+            <p className="text-gray-400 text-xs mt-6">
               {item.casinos.map((casino, i) => {
 
                 return `${casino.name}${i + 1 !== item.casinos.length ? ', ' : ''}`
@@ -89,7 +89,7 @@ function TournamentCard(item) {
 }
 
 function getWhatsOnCard(item) {
-  switch (item.whats_on_category.id) {
+  switch (item?.category?.id) {
     case 1:
       return <PromotionCard {...item} />
     case 3:
@@ -102,7 +102,7 @@ function getWhatsOnCard(item) {
 
 const options = {
   page: 0,
-  limit: 2,
+  limit: 4,
 }
 
 export default function WhatsOn({ casinos, categories, count, pageContent, regions, whatsOn }) {
@@ -167,7 +167,7 @@ export default function WhatsOn({ casinos, categories, count, pageContent, regio
                       <option value="">All Categories</option>
                       {categories.map((category) => (
                         <option value={category.id} key={category.id}>
-                          {category.heading}
+                          {category.category}
                         </option>
                       ))}
                     </select>
@@ -326,12 +326,12 @@ export default function WhatsOn({ casinos, categories, count, pageContent, regio
 }
 
 export async function getStaticProps() {
-  const casinos = await getCasinos()
-  const categories = await getWhatsOnCategories()
-  const count = await getWhatsOnCount()
-  const pageContent = await getPageContent('whats-on-page')
-  const regions = await getRegions()
-  const whatsOn = await getWhatsOn({ limit: options.limit })
+  const casinos = await getCasinos() ?? null
+  const categories = await getWhatsOnCategories() ?? null
+  const count = await getWhatsOnCount() ?? null
+  const pageContent = await getPageContent('whats-on-page') ?? null
+  const regions = await getRegions() ?? null
+  const whatsOn = await getWhatsOn({ limit: options.limit }) ?? null
 
   return {
     props: {
