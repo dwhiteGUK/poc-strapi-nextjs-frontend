@@ -1,7 +1,6 @@
-function buildQueryParams(casino, category, region, sort) {
-  let queryStr = ''
+function buildQueryParams({ casino, category, region, sort, page, limit }) {
+  let queryStr = `_start=${page ? page * limit : 0}&_limit=${limit}&`
 
-  console.log('🚀 ~ file: whats-on.js ~ line 2 ~ buildQueryParams ~ category', category)
   if (casino) queryStr += `casinos.id=${casino}&`
   if (category) queryStr += `whats_on_category.id=${category}&`
   if (region) queryStr += `regions.id=${region}&`

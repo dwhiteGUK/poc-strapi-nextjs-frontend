@@ -88,8 +88,6 @@ function TournamentCard(item) {
   )
 }
 
-
-
 function getWhatsOnCard(item) {
   switch (item.whats_on_category.id) {
     case 1:
@@ -102,16 +100,21 @@ function getWhatsOnCard(item) {
 
 }
 
+const options = {
+  page: 0,
+  limit: 2,
+}
 
-export default function WhatsOn({ casinos, categories, pageContent, regions, whatsOn }) {
+export default function WhatsOn({ casinos, categories, count, pageContent, regions, whatsOn }) {
   const [category, setCategory] = useState()
   const [casino, setCasino] = useState()
   const [region, setRegion] = useState()
   const [sort, setSort] = useState()
+  const [currentPage, setCurrentPage] = useState(options.page)
 
   const { data, isLoading } = useQuery(
-    ['whats-on', { casino, category, region, sort }],
-    () => getWhatsOn(casino, category, region, sort),
+    ['whats-on', { casino, category, region, sort, currentPage }],
+    () => getWhatsOn({ casino, category, region, sort, page: currentPage, limit: options.limit }),
     {
       initialData: whatsOn,
       keepPreviousData: true,
@@ -125,6 +128,12 @@ export default function WhatsOn({ casinos, categories, pageContent, regions, wha
     setRegion('')
     setSort('')
   }
+
+  const pagesArray = [];
+  for (let i = 0; i < (count / options.limit); i++) {
+    pagesArray.push(i + 1);
+  }
+  console.log('🚀 ~ file: whats-on.js ~ line 133 ~ WhatsOn ~ pagesArray', pagesArray)
 
   return (
     <div>
@@ -225,7 +234,7 @@ export default function WhatsOn({ casinos, categories, pageContent, regions, wha
             <section className="py-24">
               <div className="mx-auto lg:max-w-7xl px-12 lg:px-8">
                 <div className="flex flex-col md:flex-row justify-between">
-                  <p>Results: <strong>{data?.length ? data.length : 0}</strong> events found</p>
+                  <p>Results: <strong>{count}</strong> events found</p>
                   <div>
                     <label className="mr-2">Sort by</label>
                     <select
@@ -263,6 +272,47 @@ export default function WhatsOn({ casinos, categories, pageContent, regions, wha
                   ) : null}
 
                 </div>
+                <nav className="mt-12 border-t border-gray-200 px-4 flex items-center justify-between sm:px-0">
+                  <div className="-mt-px w-0 flex-1 flex">
+                    <button
+                      className="border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-gray-100 
+                      hover:text-red-700 hover:border-red-700
+                        disabled:text-gray-600 disabled:hover:border-transparent disabled:hover:cursor-not-allowed"
+                      onClick={() => setCurrentPage(currentPage - 1)}
+                      disabled={currentPage === 0}
+                    >
+                      <svg className="mr-3 h-5 w-5 text-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                      </svg>
+                      Previous
+                    </button>
+                  </div>
+                  <div className="hidden md:-mt-px md:flex">
+                    {pagesArray.map((page) => (
+                      <button
+                        className={`${page === Number.parseInt(currentPage) + 1 ? 'border-red-500 text-red-600' : 'border-transparent text-gray-100'}
+                          hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium`}
+                        onClick={() => setCurrentPage(page - 1)}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="-mt-px w-0 flex-1 flex justify-end">
+                    <button
+                      className="border-t-2 border-transparent pt-4 pl-1 inline-flex items-center text-sm font-medium text-gray-100 
+                      hover:text-red-700 hover:border-red-700
+                        disabled:text-gray-600 disabled:hover:border-transparent disabled:hover:cursor-not-allowed"
+                      onClick={() => setCurrentPage(currentPage + 1)}
+                      disabled={(currentPage + 1) >= (count / options.limit)}
+                    >
+                      Next
+                      <svg className="ml-3 h-5 w-5 text-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                </nav>
               </div>
             </section>
           </div>
@@ -270,7 +320,7 @@ export default function WhatsOn({ casinos, categories, pageContent, regions, wha
         </main>
         <Footer />
       </div>
-    </div>
+    </div >
 
   )
 }
@@ -281,7 +331,7 @@ export async function getStaticProps() {
   const count = await getWhatsOnCount()
   const pageContent = await getPageContent('whats-on-page')
   const regions = await getRegions()
-  const whatsOn = await getWhatsOn()
+  const whatsOn = await getWhatsOn({ limit: options.limit })
 
   return {
     props: {
