@@ -10,8 +10,9 @@ import WhatsOn from '~/components/whats-on'
 import Footer from '~/components/footer'
 
 import { getCasinos, getCasinosItem } from '~/lib/casinos'
+import { getWhatsOn } from '~/lib/whats-on'
 
-function getContentComponent(item) {
+function getContentComponent(item, whatsOn) {
   switch (item.__component) {
     case 'content.news-grid':
       return <NewsGrid data={item} />
@@ -20,7 +21,7 @@ function getContentComponent(item) {
     case 'content.gallery':
       return <Gallery data={item} />
     case 'content.whats-on':
-      return <WhatsOn data={item} />
+      return <WhatsOn data={whatsOn} />
     default:
       return <p>{`Component not found ${item.__component}`}</p>
   }
@@ -44,7 +45,7 @@ function createIconMarkup(icon) {
   return { __html: icon };
 }
 
-export default function CasinosItem({ item, preview }) {
+export default function CasinosItem({ item, whatsOn, preview }) {
   const mdxSource = (item && item?.Body && hydrate(item?.mdxSource || '')) ?? ''
 
   async function exitPreviewMode() {
@@ -142,7 +143,7 @@ export default function CasinosItem({ item, preview }) {
                 <CasinoNav content={item.content} />
                 <div>
                   {item?.content.map(item => {
-                    const component = getContentComponent(item);
+                    const component = getContentComponent(item, whatsOn);
                     return component
                   })}
                 </div>
@@ -161,6 +162,8 @@ export async function getStaticProps(context) {
   const { params, preview } = context
   const item = await getCasinosItem(params.id, preview)
 
+  const whatsOn = await getWhatsOn({ limit: -1, casino: params.id }) ?? null
+
   if (!item) {
     return { notFound: true }
   }
@@ -173,6 +176,7 @@ export async function getStaticProps(context) {
         ...item,
         mdxSource
       },
+      whatsOn,
       preview: preview ? true : null
     }
   }
