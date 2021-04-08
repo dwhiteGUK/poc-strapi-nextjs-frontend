@@ -97,12 +97,11 @@ function getWhatsOnCard(item) {
     default:
       return <PromotionCard {...item} />
   }
-
 }
 
 const options = {
   page: 0,
-  limit: 4,
+  limit: 6,
 }
 
 export default function WhatsOn({ casinos, categories, count, pageContent, regions, whatsOn }) {

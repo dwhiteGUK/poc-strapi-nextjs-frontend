@@ -2,7 +2,6 @@
 import Image from 'next/image'
 
 export default function Gallery({ data }) {
-  console.log('🚀 ~ file: gallery.js ~ line 3 ~ gallery ~ data', data)
   return (
     <div className="bg-gray-800 pt-4 sm:pt-8 text-white">
       <div className="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
